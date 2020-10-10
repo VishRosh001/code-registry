@@ -44,21 +44,29 @@ const useGetStyles = () =>{
 
 const useStyles = makeStyles(useGetStyles);
 
-function Login() {
+function Register() {
     const classes = useStyles();
 
   return <Box className={classes.loginBox} >
-      <Typography className={classes.loginTitle}>Log In</Typography>
+      <Typography className={classes.loginTitle}>Sign Up</Typography>
       <FormControl className={classes.inputField}>
         <InputLabel>Username</InputLabel>
+        <FilledInput ></FilledInput>
+      </FormControl>
+      <FormControl className={classes.inputField}>
+        <InputLabel>Email address</InputLabel>
         <FilledInput ></FilledInput>
       </FormControl>
       <FormControl className={classes.inputField}>
         <InputLabel>Password</InputLabel>
         <FilledInput></FilledInput>
       </FormControl>
-      <Button className={classes.loginButton}>Log In</Button>
+      <FormControl className={classes.inputField}>
+        <InputLabel>Confirm Password</InputLabel>
+        <FilledInput></FilledInput>
+      </FormControl>
+      <Button className={classes.loginButton}>Sign Up</Button>
   </Box>;
 }
 
-export default Login;
+export default Register;
