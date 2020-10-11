@@ -1,18 +1,22 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import { Typography, Button, FormControl, FilledInput, InputLabel} from '@material-ui/core';
+import { Typography, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {useTheme} from "@material-ui/core";
+
+import InputBox from "./../components/inputBox";
+import InputButton from "./../components/inputButton";
 
 const useGetStyles = () =>{
     const theme = useTheme();
 
     return {
             loginBox:{
-                background: theme.palette.secondary.main,
+                background: theme.palette.secondary.light,
                 width: "50%",
                 minWidth: "400px",
                 maxWidth: "500px",
+                height: "280px",
                 boxShadow: "0 3px 5px 4px rgba(0, 0, 0, 0.3)"
             },
 
@@ -20,26 +24,23 @@ const useGetStyles = () =>{
                 color: theme.palette.common.white,
                 fontSize: 30,
                 marginTop: "20px",
-                marginLeft: "15px",
+                marginLeft: "40%",
                 marginBottom: "15px"
-            },
-
-            inputField:{
-                width: "300px",
-                marginBottom: "20px",
-                marginLeft: "20%",
-                color: theme.palette.common.white,
-                background: theme.palette.secondary.light,
-               
-            },
-
-            loginButton:{
-                width: "150px",
-                height: "50px",
-                marginLeft: "30%",
-                marginBottom: "20px"
             }
         }
+}
+
+const getStyles = {
+    userInput: {
+        marginTop: "10px",
+        marginLeft: "28%",
+        width: "300px"
+    },
+    loginButton:{
+        marginLeft: "33%",
+        marginTop: "20px",
+        marginBottom: "40px",
+    }
 }
 
 const useStyles = makeStyles(useGetStyles);
@@ -49,15 +50,9 @@ function Login() {
 
   return <Box className={classes.loginBox} >
       <Typography className={classes.loginTitle}>Log In</Typography>
-      <FormControl className={classes.inputField}>
-        <InputLabel>Username</InputLabel>
-        <FilledInput ></FilledInput>
-      </FormControl>
-      <FormControl className={classes.inputField}>
-        <InputLabel>Password</InputLabel>
-        <FilledInput></FilledInput>
-      </FormControl>
-      <Button className={classes.loginButton}>Log In</Button>
+      <InputBox style={getStyles.userInput} label="Username"></InputBox>
+      <InputBox style={getStyles.userInput} label="Password"></InputBox>
+      <InputButton style={getStyles.loginButton} label="Log In"></InputButton>
   </Box>;
 }
 
