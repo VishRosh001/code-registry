@@ -13,6 +13,13 @@ const SnippetSchema = new mongoose.Schema({
         required: true,
         min: 8
     },
+
+    description: {
+        type: String,
+        required: true,
+        min: 10
+    },
+
     userID: {
         type: ObjectId,
         required: true,
