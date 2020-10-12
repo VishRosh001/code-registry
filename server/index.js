@@ -7,19 +7,28 @@ const dotenv = require("dotenv");
 
 //internal imports
 const mongoDB = require("./database/mongoDB");
-const verifyToken = require("./routes/auth/verifyToken");
 
 //routes
 const registerRoute = require("./routes/auth/register");
 const loginRoute = require("./routes/auth/login");
+
+const addSnippetRoute = require("./routes/processSnippet");
 
 dotenv.config();
 app.use(express.json());
 
 mongoDB.connectToDatabase();
 
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['*']);
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 app.use("/api/user", registerRoute);
 app.use("/api/user", loginRoute);
+app.use("/api/snippet", addSnippetRoute);
 
 app.get("/", (req, res)=>{
     res.send("Hello World");

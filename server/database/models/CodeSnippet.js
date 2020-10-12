@@ -21,7 +21,7 @@ const SnippetSchema = new mongoose.Schema({
     },
 
     userID: {
-        type: ObjectId,
+        type: mongoose.ObjectId,
         required: true,
     },
     timestamp: {
