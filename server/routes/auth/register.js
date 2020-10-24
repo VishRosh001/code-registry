@@ -13,8 +13,11 @@ router.post("/register",
     ],
     async (req, res)=>{
         try{
+            console.log(req.body.username);
             const errors = validationResult(req);
             if(!errors.isEmpty())return res.status(401).json({error: errors.errors[0].msg});
+
+            console.log(req.body.username);
 
             let userExists = await User.findOne({username: req.body.username});
             if(userExists)return res.status(401).json({error: "Username already taken"});
@@ -37,7 +40,8 @@ router.post("/register",
 
             jwt.sign({id:newUser._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRY}, (error, token)=>{
                 if(error)throw error;
-                return res.header("auth-token", token);
+                
+                return res.json({token: token});
             });
 
         }catch(error){

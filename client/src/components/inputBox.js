@@ -28,8 +28,11 @@ const StyledTextField = styled(TextField)`
 
 let InputBox = function(props){
     const theme = useTheme();
-    return <FormControl>
-        <StyledTextField label={props.label} theme={theme} style={props.style} variant="outlined"></StyledTextField>
+    let proper = JSON.parse(JSON.stringify(props));;
+    delete proper.style;
+   ;
+    return <FormControl style={props.style}>
+        <StyledTextField {...proper} onChange={props.onChildChange} theme={theme} variant="outlined"></StyledTextField>
     </FormControl>
 }
 

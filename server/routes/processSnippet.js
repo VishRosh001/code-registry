@@ -13,7 +13,7 @@ router.post("/add", verifyToken, [
 ], async (req, res)=>{
     try{
         console.log(req.header("auth-token"));
-
+        
         const errors = validationResult(req);
         if(!errors.isEmpty())return res.status(401).json({error: errors.errors[0].msg});
 

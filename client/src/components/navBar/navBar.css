@@ -1,0 +1,20 @@
+.registryNav {
+  background-color: #1a1a1b;
+  margin: 0px;
+  padding: 0px;
+  display: grid;
+  grid-template-columns: repeat(1, 200px 50% 120px 120px);
+  grid-gap: 5px;
+  justify-content: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.25em;
+}
+
+.accountButtons {
+  width: 330px;
+}
+
+.registryLogo {
+  margin-top: 4px;
+  padding-right: 5px;
+}

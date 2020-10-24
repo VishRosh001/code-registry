@@ -10,9 +10,9 @@ router.post("/login",
         check("username").not().isEmpty().isLength({min: 2, max: 32}),
         check("password").not().isEmpty().isLength({min: 5, max: 32})
     ], 
-    async (req, res, next)=>{
+    async (req, res)=>{
         try{
-            
+            console.log(req.body.username);
             const errors = validationResult(req);
             if(!errors.isEmpty())return res.status(401).json({error: errors.errors[0].msg});
 
@@ -26,12 +26,7 @@ router.post("/login",
             jwt.sign({id: oldUser._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRY},(error, token)=>{
                 if(error)throw error;
                 
-                console.log(token);
-               // console.log("Logged In");
-                //res.header("auth-token", token);
-                if (typeof(Storage) !== "undefined") {
-                localStorage.setItem("userToken", token);}
-                return res.json({message: "Loggged In"});
+                return res.json({token: token});
             });
 
         }catch(error){
