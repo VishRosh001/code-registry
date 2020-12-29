@@ -9,7 +9,7 @@ function RegistryLogo(props) {
         imageWidth = 180;
         imageHeight = 50;
     }
-    return <img {...props} src={registryLogo} width={imageWidth} height={imageHeight}></img>
+    return <a href="http://localhost:3000/"><img {...props} src={registryLogo} width={imageWidth} height={imageHeight}></img></a>
 }
 
 export default RegistryLogo;

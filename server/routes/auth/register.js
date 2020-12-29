@@ -40,8 +40,8 @@ router.post("/register",
 
             jwt.sign({id:newUser._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRY}, (error, token)=>{
                 if(error)throw error;
-                
-                return res.json({token: token});
+                res.set("authorisation", token);
+                return res.json({user: newUser.username, token: token, exp: jwt.decode(token).exp});
             });
 
         }catch(error){

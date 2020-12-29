@@ -80,7 +80,7 @@ function Register() {
 		<InputBox style={getStyles.userInput} name="email" value={userData.email} onChildChange={handleChange} label="Email"></InputBox>
 		<InputBox style={getStyles.userInput} name="password" value={userData.password} onChildChange={handleChange} label="Password"></InputBox>
 		<InputBox style={getStyles.userInput} name="confirmPassword" value={userData.confirmPassword} onChildChange={handleChange} label="Confirm Password"></InputBox>
-		<InputButton style={getStyles.loginButton} name="submit" onClick={handleChange} label="Sign Up"></InputButton>
+		<InputButton style={getStyles.loginButton} name="submit" onChildClick={handleChange} label="Sign Up"></InputButton>
 	</Box>;
 }
 

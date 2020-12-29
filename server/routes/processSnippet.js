@@ -9,11 +9,8 @@ router.post("/add", verifyToken, [
     check("title").not().isEmpty().isLength({min: 4, max: 256}),
     check("snippet").not().isEmpty().isLength({min: 8}),
     check("description").not().isEmpty().isLength({min: 10}),
-    check("userID").not().isEmpty()
 ], async (req, res)=>{
     try{
-        console.log(req.header("auth-token"));
-        
         const errors = validationResult(req);
         if(!errors.isEmpty())return res.status(401).json({error: errors.errors[0].msg});
 
@@ -21,10 +18,10 @@ router.post("/add", verifyToken, [
             title: req.body.title,
             snippet: req.body.snippet,
             description: req.body.description,
-            userID: req.body.creatorID,
+            userID: req.userID,
             timestamp: new Date().toISOString()
         });
-
+        console.log("here");
         const newSnippetPromise = await newSnippet.save();
 
     }catch(error){

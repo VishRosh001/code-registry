@@ -8,6 +8,8 @@ import Home from "./pages/home";
 import AddCode from "./pages/addCode";
 import RegistryTab from "./components/registryTab";
 
+import SnipDisplay from "./components/snipDisplay/snipDisplay";
+
 function App() {
   return (
     <Router>

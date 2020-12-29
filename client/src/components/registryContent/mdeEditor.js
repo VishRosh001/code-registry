@@ -9,7 +9,6 @@ function MdeEditor(props) {
     const [selectedTab, setSelectedTab] = React.useState("write");
 
     const handleChanges = (event)=>{
-      //  console.log(event.target.value);
       props.parentCallback(event.target.value);
       event.preventDefault();
     }

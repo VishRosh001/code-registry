@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 function verifyToken(req, res, next){
-    const jwtToken = req.headers.authorisation(" ")[1];
+    const jwtToken = req.headers.authorisation;
     try{
         if(!jwtToken)throw "Invalid Token";
         const tokenDecoded = jwt.verify(jwtToken, process.env.JWT_SECRET);
@@ -12,4 +12,4 @@ function verifyToken(req, res, next){
     }
 }
 
-module.exports = verifyToken; 
+module.exports = verifyToken;

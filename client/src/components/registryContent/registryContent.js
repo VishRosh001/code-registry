@@ -1,33 +1,27 @@
 import React, {useState} from 'react'
-import {Paper, Typography} from "@material-ui/core";
+import SnipDisplay from "./../snipDisplay/snipDisplay";
+import {getSnippets} from "./../../axios/serverRequests";
 
 import "./registryContent.css";
 
-class ContentDisplay{
-    constructor(id, title, desc, upvotes, author){
-        this.id = id;
-        this.title = title;
-        this.description = desc;
-        this.upvotes = upvotes;
-        this.author = author;
-    }
-}
+let count = 0;
 
 function RegistryContent(props) {
-
-    const [content, setContent] = useState([]);
+    let [snippets, setSnippets] = useState({data: []});
+    
+    if(count === 0){
+        getSnippets()
+        .then(res => {setSnippets({data: res.data}); count = 1})
+        .catch(error => console.log(error));
+    }
 
     return (
-        <div {...props}>
-            <Paper variant="outlined" elevation={2}>
-                <div>
-                <Typography variant="h6"> 10 Upvotes</Typography>
-                </div>
-                <div>
-                    <Typography variant="h5"> This is a title</Typography>
-                    <Typography display="inline" variant="subtitle1">Hello this is a desciption dfsdf sdf sfds dsfs dfsdfwfw wfsdfsfs sfsfs</Typography>
-                </div>
-            </Paper>
+        <div className="snipsContainer">
+            {
+                
+                snippets.data.map(item => <div key={item._id} className="snipItem"><SnipDisplay  title={item.title} description={item.description}></SnipDisplay></div>)
+                
+            }
         </div>
     )
 }

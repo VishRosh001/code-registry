@@ -18,8 +18,11 @@ let InputButton = function(props){
     let proper = JSON.parse(JSON.stringify(props));;
     delete proper.style;
 
+    let onClickEvent= props.onChildClick;
+    if(onClickEvent === undefined)onClickEvent = props.onclick;
+
     return <StyledBox theme={theme} style={props.style}>
-        <Button {...proper} onClick={props.onChildClick}>{proper.label}</Button>
+        <Button {...proper} onClick={onClickEvent}>{proper.label}</Button>
     </StyledBox>
 }
 

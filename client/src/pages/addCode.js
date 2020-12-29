@@ -7,6 +7,8 @@ import NavBar from "./../components/navBar/navBar";
 import InputBox from "./../components/inputBox";
 import InputButton from "./../components/inputButton";
 
+import {postSnippet} from "./../axios/serverRequests";
+
 function AddCode() {
 
     const setDescData = (data) =>{
@@ -28,6 +30,7 @@ function AddCode() {
 
         if(event.type === "click"){
             console.log(snipData);
+            postSnippet(snipData);
         }
     }
 

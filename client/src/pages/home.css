@@ -1,15 +1,15 @@
-.snipsContainer {
+body {
+  background-color: #dae0e6;
+}
+
+.snipContainer {
   display: grid;
   grid-template-columns: auto;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 .snipItem {
-  margin-top: 40px;
+  margin-top: 10px;
   background-color: rgb(236, 234, 234);
-}
-
-.snipItem:hover {
-  background-color: rgb(206, 203, 203);
 }

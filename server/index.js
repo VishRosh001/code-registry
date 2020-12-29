@@ -12,8 +12,10 @@ const mongoDB = require("./database/mongoDB");
 //routes
 const registerRoute = require("./routes/auth/register");
 const loginRoute = require("./routes/auth/login");
+const authToken = require("./routes/auth/authToken");
 
 const addSnippetRoute = require("./routes/processSnippet");
+const getSnippetRoute = require("./routes/reqSnippet");
 
 dotenv.config();
 app.use(express.json());
@@ -24,6 +26,8 @@ mongoDB.connectToDatabase();
 app.use("/api/user", registerRoute);
 app.use("/api/user", loginRoute);
 app.use("/api/snippet", addSnippetRoute);
+app.use("/api/snippet", getSnippetRoute);
+app.use("/api/user", authToken);
 
 app.get("/", (req, res)=>{
     res.send("Hello World");
