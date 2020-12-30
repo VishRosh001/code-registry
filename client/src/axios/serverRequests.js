@@ -1,7 +1,8 @@
 const axios = require("axios");
 
 export const postLogin = async (userData)=>{
-    axios.post("http://localhost:5000/api/user/login", {
+    let success = false;
+    await axios.post("http://localhost:5000/api/user/login", {
         username: userData.username,
         password: userData.password
     })
@@ -10,8 +11,10 @@ export const postLogin = async (userData)=>{
         localStorage.setItem("authorisation", response.data.token);
         localStorage.setItem("exp", response.data.exp);
         localStorage.setItem("user", response.data.user);
+        success = true;
     })
-    .catch(error => console.log("Error"));
+    .catch();
+    return success;
 }
 
 export const requestUsername = async (userID)=>{
@@ -47,13 +50,15 @@ const axiosConfig = {
 }
 
 export const postSnippet = async (snipData)=>{
-    axios.post("http://localhost:5000/api/snippet/add", {
+    let success = false;
+    await axios.post("http://localhost:5000/api/snippet/add", {
         title: snipData.title,
         description: snipData.description,
         snippet: snipData.code
     }, axiosConfig)
-    .then(response => {console.log(response)})
-    .catch(error => console.log("Error"));
+    .then(response => {success=true;})
+    .catch();
+    return success;
 }
 
 export const getSnippets = async ()=>{

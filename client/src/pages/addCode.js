@@ -9,7 +9,11 @@ import InputButton from "./../components/inputButton";
 
 import {postSnippet} from "./../axios/serverRequests";
 
+import {useHistory} from "react-router-dom";
+
 function AddCode() {
+
+    const history = useHistory();
 
     const setDescData = (data) =>{
         setSnipData({...snipData, description: data});
@@ -29,8 +33,9 @@ function AddCode() {
         }
 
         if(event.type === "click"){
-            console.log(snipData);
-            postSnippet(snipData);
+            postSnippet(snipData)
+            .then(e=>{console.log("SDa");if(e){console.log("SDFA");history.push({pathname: "/", state:{from: "login"}})}})
+            .catch(e=>console.log(e));
         }
     }
 

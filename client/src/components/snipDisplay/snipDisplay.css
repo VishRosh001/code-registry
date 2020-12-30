@@ -20,8 +20,12 @@
 }
 
 .content .title {
-  font-weight: bold;
-  font-size: 25px;
+  font-weight: 500;
+  font-size: 19px;
+}
+
+.content .description {
+  font-size: 15px;
 }
 
 .imageContainer {
@@ -41,5 +45,5 @@
 .credit .username {
   padding-top: 5px;
   margin-right: 20px;
-  font-size: 15px;
+  font-size: 13px;
 }

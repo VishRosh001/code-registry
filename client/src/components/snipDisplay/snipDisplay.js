@@ -32,7 +32,7 @@ function SnipDisplay(props) {
                     </section>
                     <section className="content">
                         <Typography className="title">{title}</Typography>
-                        <Typography>{desc}</Typography>
+                        <Typography className="description">{desc}</Typography>
                     </section>
                 </div>
             </div>

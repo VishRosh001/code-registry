@@ -8,6 +8,7 @@ import InputBox from "./../components/inputBox";
 import InputButton from "./../components/inputButton";
 
 import {postLogin} from "../axios/serverRequests";
+import {useHistory} from "react-router-dom";
 
 const useGetStyles = () =>{
     const theme = useTheme();
@@ -49,6 +50,7 @@ const useStyles = makeStyles(useGetStyles);
 
 function Login() {
     const classes = useStyles();
+    const history = useHistory();
 
     const handleChange = (event)=>{
         if(event.target.name === "username"){
@@ -60,6 +62,7 @@ function Login() {
 
         if(event.type === "click"){
             postLogin(userData);
+            history.push("/");
         }
     }
 
