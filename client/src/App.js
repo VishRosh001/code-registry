@@ -7,8 +7,7 @@ import Register from "./pages/register";
 import Home from "./pages/home";
 import AddCode from "./pages/addCode";
 import RegistryTab from "./components/registryTab";
-
-import SnipDisplay from "./components/snipDisplay/snipDisplay";
+import ShowSnippet from "./pages/showSnippet";
 
 function App() {
   return (
@@ -20,6 +19,7 @@ function App() {
             <Route path="/register" component={Register}/>
             <Route path="/postSnip" component={AddCode}/>
             <Route path="/tab" component={RegistryTab}/>
+            <Route path="/show" component={ShowSnippet}/>
           </Switch>}
         </div>  
     </Router>

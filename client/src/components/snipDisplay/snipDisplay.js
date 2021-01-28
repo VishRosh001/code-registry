@@ -9,7 +9,7 @@ function SnipDisplay(props) {
     const title = props.title === undefined ? "Title": props.title;
     const desc = props.description === undefined ? "This is a description" : props.description;
     const votes = props.votes === undefined ? 0 : props.votes;
-    const views = props.views === undefined ? 0 : props.views; 
+    const views = props.views === undefined ? 0 : props.views;
 
     return (
         <>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Box from '@material-ui/core/Box';
-import { Typography, Button, FormControl, FilledInput, InputLabel} from '@material-ui/core';
+import { Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {useTheme} from "@material-ui/core";
 
@@ -59,7 +59,7 @@ function Register() {
 		if(event.target.name === "email")
 			setUserData({...userData, email: event.target.value});
 
-		if(event.target.name == "confirmPassword")
+		if(event.target.name === "confirmPassword")
 			setUserData({...userData, confirmPassword: event.target.value});
 
 		if(event.type === "click"){

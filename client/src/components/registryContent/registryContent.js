@@ -1,26 +1,34 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import SnipDisplay from "./../snipDisplay/snipDisplay";
 import {getSnippets} from "./../../axios/serverRequests";
 
+import {useHistory} from "react-router-dom";
+
 import "./registryContent.css";
 
-let count = 0;
-
 function RegistryContent(props) {
-    let [snippets, setSnippets] = useState({data: []});
+    const history = useHistory();
+    const [snippets, setSnippets] = useState([]);
     
-    if(count === 0){
-        getSnippets()
-        .then(res => {setSnippets({data: res.data}); count = 1})
-        .catch(error => console.log(error));
-    }
 
+    useEffect(()=>{
+        getSnippets()
+        .then(res => {setSnippets(res.data);})
+        .catch();
+    }, []);
+
+    snippets.sort((a, b)=>{
+        return b.votes - a.votes;
+    });
+    
     return (
         <div className="snipsContainer">
             {
-                
-                snippets.data.map(item => <div key={item._id} className="snipItem"><SnipDisplay  title={item.title} description={item.description}></SnipDisplay></div>)
-                
+                snippets.map(item =>
+                    <div key={item._id} onClick={e=>{history.push("/show?id=" + item._id)}}className="snipItem">
+                        <SnipDisplay credit={item.user[0].username} votes={item.votes} views={item.views} title={item.title} description={item.description}>
+                        </SnipDisplay>
+                    </div>)
             }
         </div>
     )

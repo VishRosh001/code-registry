@@ -3,7 +3,7 @@
   margin: 0px;
   padding: 0px;
   display: grid;
-  grid-template-columns: repeat(1, 200px 50% 120px 120px);
+  grid-template-columns: repeat(1, 200px 50% 120px 120px 120px);
   grid-gap: 5px;
   justify-content: center;
   padding-top: 0.5rem;
@@ -17,4 +17,11 @@
 .registryLogo {
   margin-top: 4px;
   padding-right: 5px;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.searchBox {
+  grid-column-start: 2;
+  grid-column-end: 3;
 }

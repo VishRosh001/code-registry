@@ -21,7 +21,6 @@ router.post("/add", verifyToken, [
             userID: req.userID,
             timestamp: new Date().toISOString()
         });
-        console.log("here");
         const newSnippetPromise = await newSnippet.save();
 
     }catch(error){

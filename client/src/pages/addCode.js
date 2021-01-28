@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import MdeEditor from "./../components/registryContent/mdeEditor";
-import {Paper, Typography} from "@material-ui/core";
+import {Paper} from "@material-ui/core";
 
 import NavBar from "./../components/navBar/navBar";
 import InputBox from "./../components/inputBox";
@@ -19,7 +19,8 @@ function AddCode() {
         setSnipData({...snipData, description: data});
     }
    
-    const handleChange = (event)=>{
+    const handleChange = async (event)=>{
+        
         if(event.target.name === "title"){
             setSnipData({...snipData, title: event.target.value});
         }
@@ -33,9 +34,8 @@ function AddCode() {
         }
 
         if(event.type === "click"){
-            postSnippet(snipData)
-            .then(e=>{console.log("SDa");if(e){console.log("SDFA");history.push({pathname: "/", state:{from: "login"}})}})
-            .catch(e=>console.log(e));
+            postSnippet(snipData);
+            history.push({pathname:"/", state:{from:"login"}})
         }
     }
 

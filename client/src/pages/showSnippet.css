@@ -1,4 +1,4 @@
-.container {
+.fullSnippetContainer {
   display: grid;
   grid-template-columns: 70px auto;
   width: 650px;
@@ -6,11 +6,10 @@
   padding-right: 5px;
   padding-left: 3px;
   padding-top: 5px;
-  background-color: white;
-}
-
-.container:hover {
-  background-color: lightgrey;
+  background-color: rgb(255, 255, 255);
+  margin-left: 33%;
+  margin-top: 30px;
+  border-radius: 4px;
 }
 
 .left {
@@ -51,4 +50,20 @@
   padding-top: 5px;
   margin-right: 20px;
   font-size: 13px;
+}
+
+.voteContainer .voteArrow {
+  font-size: 30px;
+  padding: 0px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.content .snip {
+  margin-top: 30px;
+}
+
+.secSnip {
+  width: 650px;
+  margin-left: 33%;
 }

@@ -7,9 +7,10 @@
 
 .snipItem {
   margin-top: 40px;
-  background-color: rgb(236, 234, 234);
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .snipItem:hover {
-  background-color: rgb(206, 203, 203);
+  background-color: rgb(158, 156, 156);
 }
