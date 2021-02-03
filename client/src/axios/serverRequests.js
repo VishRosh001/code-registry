@@ -81,12 +81,14 @@ export const getSnippet = async function(id){
 }
 
 export const updateSnippetVote = async function(snip, vote){
-    return await axios.post("http://localhost:5000/api/snippet/update/votes", {
+    let success = false;
+    await axios.post("http://localhost:5000/api/snippet/update/votes", {
         snipId: snip,
         vote: vote
     }, axiosConfig)
-    .then()
-    .catch();
+    .then(()=>{success = true;})
+    .catch(()=>{success = false;});
+    return success;
 }
 
 export const updateSnippetViews = async function(snip){

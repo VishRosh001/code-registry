@@ -51,13 +51,14 @@ function ShowSnippet(props) {
     const handleVote = (event) => {
         const target = event.target;
         if (target.getAttribute("name") === "up") {
+
             setVote(vote + 1);
-            updateSnippetVote(snipId, 1).then();
+            updateSnippetVote(snipId, 1).then(e=>{console.log(e);if(e !== true){setVote(vote - 1)}});
         }
 
         if (target.getAttribute("name") === "down") {
             setVote(vote - 1);
-            updateSnippetVote(snipId, -1).then();
+            updateSnippetVote(snipId, -1).then(e=>{console.log(e);if(e !== true){setVote(vote + 1)}});
         }
     }
 
