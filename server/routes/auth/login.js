@@ -12,7 +12,6 @@ router.post("/login",
     ], 
     async (req, res)=>{
         try{
-            console.log(req.body.username);
             const errors = validationResult(req);
             if(!errors.isEmpty())return res.status(401).json({error: errors.errors[0].msg});
 
@@ -25,10 +24,9 @@ router.post("/login",
 
             jwt.sign({id: oldUser._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRY},(error, token)=>{
                 if(error)throw error;
-                
-                res.set("authorisation", token);
-                
-                return res.json({user: oldUser.username, token: token, exp: jwt.decode(token).exp});
+
+                req.session.ut = token;
+                return res.status(200).json({user: oldUser.username, exp: jwt.decode(token).exp});
             });
 
         }catch(error){

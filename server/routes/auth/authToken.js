@@ -2,17 +2,16 @@ const router = require("express").Router();
 
 const jwt = require("jsonwebtoken");
 
-router.post("/authUser",
+const verifyToken = require("./verifyToken");
+
+const User = require("./../../database/models/User");
+
+router.post("/authUser", verifyToken,
     async (req, res)=>{
-        const jwtToken = req.headers.authorisation;
-        try{
-            if(!jwtToken)throw "Invalid Token";
-            const tokenDecoded = jwt.verify(jwtToken, process.env.JWT_SECRET);
-            req.userID = tokenDecoded.id;
-            res.json({valid: true});
-        }catch(error){
-            return res.status(401).json({error: error, valid: false});
-        }
+        let user = await User.findOne({_id: req.userID});
+
+
+        return res.status(200).json({valid: true, username: user.username});
     }
 );
 

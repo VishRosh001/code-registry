@@ -1,23 +1,42 @@
 const axios = require("axios");
 
+axios.defaults.withCredentials = true;
+
+const getFullRoute = (route)=>{
+    return "http://localhost:5000/api/" + route;
+}
+
 export const postLogin = async (userData)=>{
-    let success = false;
-    await axios.post("http://localhost:5000/api/user/login", {
+    return await axios.post(getFullRoute("user/login"), {
         username: userData.username,
         password: userData.password
     })
     .then(response => {
-        localStorage.setItem("authorisation", response.data.token);
-        localStorage.setItem("exp", response.data.exp);
-        localStorage.setItem("user", response.data.user);
-        success = true;
+        return {success: true,  exp: response.data.exp, username: response.data.user}
     })
-    .catch();
-    return success;
+    .catch(()=>{return {succes: false}});
+}
+
+export const postRegister = async (userData)=>{
+    axios.post(getFullRoute("user/register"), {
+        username: userData.username,
+        email: userData.email,
+        password: userData.password
+    })
+    .then(response => {
+        return {success: true,  exp: response.data.exp, username: response.data.user}
+    })
+    .catch(()=>{return {succes: false}});
+}
+
+export const logout = async () => {
+    return await axios.post(getFullRoute("user/logout"))
+    .then(() => {return true;})
+    .catch(()=>{return false;})
 }
 
 export const requestUsername = async (userID)=>{
-    axios.post("http://localhost:5000/api/user/request", {
+    axios.post(getFullRoute("user/request"), {
         username: userID
     })
     .then(response => {
@@ -26,19 +45,6 @@ export const requestUsername = async (userID)=>{
     .catch();
 }
 
-export const postRegister = async (userData)=>{
-    axios.post("http://localhost:5000/api/user/register", {
-        username: userData.username,
-        email: userData.email,
-        password: userData.password
-    })
-    .then(response => {
-        localStorage.setItem("authorisation", response.data.token);
-        localStorage.setItem("exp", response.data.exp);
-        localStorage.setItem("user", response.data.user);
-    })
-    .catch();
-}
 
 const axiosConfig = {
     headers: {
@@ -46,35 +52,33 @@ const axiosConfig = {
     }
 }
 
-export const postSnippet = async function(snipData){
-    return await axios.post("http://localhost:5000/api/snippet/add", {
+export const postSnippet = async (snipData)=>{
+    return await axios.post(getFullRoute("snippet/add"), {
         title: snipData.title,
         description: snipData.description,
         snippet: snipData.code
-    }, axiosConfig)
+    })
     .then(res=>{return res;})
     .catch();
 }
 
 export const getSnippets = async ()=>{
     let snippets = [];
-    await axios.get("http://localhost:5000/api/snippet/get")
+    await axios.get(getFullRoute("snippet/get"))
     .then(response => {snippets = response.data;})
     .catch();
     return snippets;
 }
 
-export const authUser = async function(goto){
-    return await axios.post("http://localhost:5000/api/user/authUser", {
-        token: localStorage.getItem("authorisation")
-    }, axiosConfig)
-    .then(()=>{return true})
-    .catch(()=>{return false});
+export const authUser = async function(token){
+    return await axios.post(getFullRoute("user/authUser"))
+    .then((r)=>{return r.data})
+    .catch(()=>{return {valid: false}});
 }
 
 export const getSnippet = async function(id){
     let snippet;
-    await axios.get("http://localhost:5000/api/snippet/get/"+id)
+    await axios.get(getFullRoute("snippet/get/"+id))
     .then(res=>{snippet=res.data})
     .catch();
     return snippet;
@@ -82,17 +86,18 @@ export const getSnippet = async function(id){
 
 export const updateSnippetVote = async function(snip, vote){
     let success = false;
-    await axios.post("http://localhost:5000/api/snippet/update/votes", {
+    await axios.post(getFullRoute("snippet/update/votes"), {
         snipId: snip,
         vote: vote
-    }, axiosConfig)
+    })
     .then(()=>{success = true;})
     .catch(()=>{success = false;});
     return success;
 }
 
+
 export const updateSnippetViews = async function(snip){
-    return await axios.post("http://localhost:5000/api/snippet/update/views",{
+    return await axios.post(getFullRoute("snippet/update/views"),{
         snipId: snip
     })
     .then()

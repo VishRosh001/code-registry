@@ -23,6 +23,8 @@ router.post("/add", verifyToken, [
         });
         const newSnippetPromise = await newSnippet.save();
 
+        return res.status(200);
+
     }catch(error){
         return res.status(401).send(error);
     }

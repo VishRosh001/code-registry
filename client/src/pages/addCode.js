@@ -1,19 +1,25 @@
-import React, {useState} from 'react'
-
-import MdeEditor from "./../components/registryContent/mdeEditor";
+import React, {useState, useEffect, useContext} from 'react'
+import {useHistory} from "react-router-dom";
 import {Paper} from "@material-ui/core";
 
-import NavBar from "./../components/navBar/navBar";
+import MdeEditor from "./../components/registryContent/mdeEditor";
+
 import InputBox from "./../components/inputBox";
 import InputButton from "./../components/inputButton";
-
 import {postSnippet} from "./../axios/serverRequests";
+import UserContext from "./../context/userContext";
 
-import {useHistory} from "react-router-dom";
 
 function AddCode() {
 
     const history = useHistory();
+    const {user} = useContext(UserContext);
+
+    useEffect(()=>{
+        if(!user.loggedIn){
+            history.push("/login");
+        }
+    }, [user]);
 
     const setDescData = (data) =>{
         setSnipData({...snipData, description: data});
@@ -35,7 +41,7 @@ function AddCode() {
 
         if(event.type === "click"){
             postSnippet(snipData);
-            history.push({pathname:"/", state:{from:"login"}})
+            history.push("/")
         }
     }
 
@@ -43,7 +49,6 @@ function AddCode() {
 
     return (
         <div>
-            <NavBar></NavBar>
             <Paper variant="outlined" style={{marginLeft: "30%", marginTop: "30px", padding: "2px", paddingBottom: "5px", width: "40%"}} elevation={2} >
                 <InputBox placeholder="Title" name="title" value={snipData.title} onChildChange={handleChange} style={{width: "100%"}}></InputBox>
                 <MdeEditor placeholder="Description" name="description" value={snipData.description} parentCallback={setDescData} style={{marginTop: "10px", width: "100%"}}></MdeEditor>

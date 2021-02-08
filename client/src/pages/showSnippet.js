@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext} from 'react'
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-
-import NavBar from "./../components/navBar/navBar";
 import { Snackbar, Typography } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
 import AccountLogo from "../components/accountLogo";
+import UserContext from "../context/userContext";
 
-import { getSnippet, updateSnippetViews, updateSnippetVote } from "./../axios/serverRequests";
+import { getSnippet, updateSnippetViews, updateSnippetVote} from "./../axios/serverRequests";
 
 import "./showSnippet.css";
 
@@ -19,21 +18,7 @@ function Alert(props) {
 
 function ShowSnippet(props) {
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const snipId = urlParams.get("id");
-
-    useEffect(() => {
-        updateSnippetViews(snipId).then()
-        getSnippet(snipId).then(res => {
-            const data = res.snippet;
-            setViews(data.views);
-            setTitle(data.title);
-            setDesc(data.description);
-            setSnip(data.snippet);
-            setVote(data.votes);
-            setUsername(res.username);
-        });
-    }, [])
+    const {user, setUser} = useContext(UserContext);
 
     const [open, setOpen] = useState(false);
 
@@ -44,28 +29,47 @@ function ShowSnippet(props) {
     const [views, setViews] = useState(0);
     const [username, setUsername] = useState("username");
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const snipId = urlParams.get("id");
+
+    useEffect(() => {
+        updateSnippetViews(snipId).then();
+        getSnippet(snipId).then(res => {
+            const data = res.snippet;
+            setViews(data.views);
+            setTitle(data.title);
+            setDesc(data.description);
+            setSnip(data.snippet);
+            setVote(data.votes);
+            setUsername(res.username);
+        });
+
+    }, [snipId]);
+
     const handleClick = () => {
         setOpen(true);
     }
 
     const handleVote = (event) => {
         const target = event.target;
-        if (target.getAttribute("name") === "up") {
-
-            setVote(vote + 1);
-            updateSnippetVote(snipId, 1).then(e=>{console.log(e);if(e !== true){setVote(vote - 1)}});
-        }
-
-        if (target.getAttribute("name") === "down") {
-            setVote(vote - 1);
-            updateSnippetVote(snipId, -1).then(e=>{console.log(e);if(e !== true){setVote(vote + 1)}});
+            
+        if(user.loggedIn){
+            if (target.getAttribute("name") === "up") {
+                setVote(vote+1)
+                updateSnippetVote(snipId, 1);
+            }
+    
+            if (target.getAttribute("name") === "down") {
+                setVote(vote-1)
+                updateSnippetVote(snipId, -1);
+            }
         }
     }
 
     const handleSnipCopy = (event) => {
         navigator.clipboard.writeText(snip).then(() => {
             handleClick();
-        })
+        });
     }
 
     const handleClose = (event, reason) => {
@@ -74,7 +78,6 @@ function ShowSnippet(props) {
 
     return (
         <div>
-            <NavBar></NavBar>
             <div className="fullSnippetContainer">
                 <div className="left">
                     <div className="voteContainer">
@@ -110,7 +113,7 @@ function ShowSnippet(props) {
                 </Alert>
             </Snackbar>
         </div>
-    )
+    );
 }
 
-export default ShowSnippet
+export default ShowSnippet;

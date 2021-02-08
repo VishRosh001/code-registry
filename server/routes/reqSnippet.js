@@ -4,6 +4,7 @@ const CodeSnippet = require("../database/models/CodeSnippet");
 const User = require("../database/models/User")
 
 router.get("/get", async(req, res)=>{
+
     try{
         const snippets = await CodeSnippet.aggregate([
             {$limit: 10},
@@ -41,7 +42,6 @@ router.get("/get/:snipId", async(req, res)=>{
         const snippet = await CodeSnippet.findOne({_id: req.params.snipId});
         const user = await User.findOne({_id: snippet.userID}, {email: 0, password: 0, _id: 0, dateRegistered: 0});
 
-        //CodeSnippet.deleteMany({}, ()=>{console.log("Deleted all")});
         const username = user.username;
         return res.json({snippet, username});
     }catch(error){

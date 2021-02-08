@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import Box from '@material-ui/core/Box';
 import { Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,7 +8,7 @@ import InputBox from "./../components/inputBox";
 import InputButton from "./../components/inputButton";
 
 import {postLogin} from "../axios/serverRequests";
-import {useHistory} from "react-router-dom";
+import UserContext from '../context/userContext';
 
 const useGetStyles = () =>{
     const theme = useTheme();
@@ -48,9 +48,13 @@ const getStyles = {
 
 const useStyles = makeStyles(useGetStyles);
 
-function Login() {
+function Login(props) {
     const classes = useStyles();
-    const history = useHistory();
+    const {user, setUser} = useContext(UserContext);
+
+    useEffect(()=>{
+        if(user.loggedIn)props.history.push("/");
+    }, [user]);
 
     const handleChange = (event)=>{
         if(event.target.name === "username"){
@@ -61,8 +65,10 @@ function Login() {
         }
 
         if(event.type === "click"){
-            postLogin(userData);
-            history.push("/");
+            postLogin(userData).then(e=>{
+                setUser({username: e.username, loggedIn: true, exp: e.exp});
+                props.history.push("/");
+            });
         }
     }
 
