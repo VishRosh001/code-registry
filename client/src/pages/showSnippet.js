@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext} from 'react'
-
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { Snackbar, Typography } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
+import ReactMarkdown from "react-markdown";
 
 import AccountLogo from "../components/accountLogo";
-import UserContext from "../context/userContext";
-
 import { getSnippet, updateSnippetViews, updateSnippetVote} from "./../axios/serverRequests";
+import UserContext from "../context/userContext";
 
 import "./showSnippet.css";
 
@@ -98,7 +97,9 @@ function ShowSnippet(props) {
                     </section>
                     <section className="content">
                         <Typography className="title">{title}</Typography>
-                        <Typography className="description">{desc}</Typography>
+                        <Typography className="description">
+                            <div><ReactMarkdown source={desc} /></div>
+                        </Typography>
                     </section>
                 </div>
             </div>
